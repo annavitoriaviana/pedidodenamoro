@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido de Namoro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #FFB6C1; /* Fundo rosinha */
+            font-family: 'Great Vibes', cursive;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            padding: 40px;
+            border: 2px solid #fff;
+            border-radius: 15px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #E91E63; /* Texto rosa escuro */
+        }
+
+        .btn {
+            background-color: #fff; /* Botão branco */
+            color: #E91E63; /* Texto rosa escuro */
+            border: 2px solid #E91E63;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            text-decoration: none;
+            position: relative;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.1);
+        }
+
+        .video-container {
+            display: none;
+        }
+
+        iframe {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .heart {
+            position: absolute;
+            width: 100px;
+            height: 90px;
+            background-color: #E91E63;
+            border-radius: 50px 50px 0 0;
+            transform: rotate(-45deg);
+            top: -40px;
+            left: 50%;
+            margin-left: -50px;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 90px;
+            background-color: #E91E63;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            right: -50px;
+        }
+
+        /* Floating hearts animation */
+        .floating-heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #E91E63;
+            transform: rotate(45deg);
+            border-radius: 50% 50% 0 0;
+            animation: float 5s infinite;
+            opacity: 0.8;
+        }
+
+        .floating-heart::before,
+        .floating-heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #E91E63;
+            border-radius: 50%;
+        }
+
+        .floating-heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .floating-heart::after {
+            top: 0;
+            left: 10px;
+        }
+
+        @keyframes float {
+            0% {
+                bottom: 0;
+                opacity: 0;
+                transform: translateX(0) rotate(45deg);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                bottom: 100vh;
+                opacity: 0;
+                transform: translateX(100px) rotate(45deg);
+            }
+        }
+
+        /* Different animations for multiple hearts */
+        .floating-heart:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .floating-heart:nth-child(3) {
+            animation-delay: 2s;
+        }
+
+        .floating-heart:nth-child(4) {
+            animation-delay: 3s;
+        }
+
+        .floating-heart:nth-child(5) {
+            animation-delay: 4s;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+
+    <div class="container" id="questionContainer">
+        <h1>Você quer namorar comigo?</h1>
+        <button class="btn" id="yesBtn">Sim</button>
+        <button class="btn" id="noBtn">Não</button>
+    </div>
+    <div class="video-container" id="videoContainer">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=1" title="YouTube video player" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <script>
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('videoContainer').style.display = 'block';
+        });
+
+        const noBtn = document.getElementById('noBtn');
+        noBtn.addEventListener('mouseover', function() {
+            const container = noBtn.parentElement;
+            const containerRect = container.getBoundingClientRect();
+            const noBtnRect = noBtn.getBoundingClientRect();
+
+            let newLeft, newTop;
+
+            do {
+                newLeft = Math.random() * (containerRect.width - noBtnRect.width);
+                newTop = Math.random() * (containerRect.height - noBtnRect.height);
+            } while (
+                Math.abs(newLeft - noBtnRect.left + containerRect.left) < noBtnRect.width &&
+                Math.abs(newTop - noBtnRect.top + containerRect.top) < noBtnRect.height
+            );
+
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${newLeft}px`;
+            noBtn.style.top = `${newTop}px`;
+        });
+    </script>
+</body>
+</html>
